@@ -1,0 +1,30 @@
+name: Host Logic Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run host tests
+        run: |
+          chmod +x extras/tests/run_host_tests.sh
+          extras/tests/run_host_tests.sh
+
+      - name: Run example mock compile
+        run: |
+          chmod +x extras/tests/run_example_mock_compile.sh
+          extras/tests/run_example_mock_compile.sh
+
+
+      - name: Run header self-containment
+        run: |
+          chmod +x extras/tests/run_header_self_containment.sh
+          extras/tests/run_header_self_containment.sh

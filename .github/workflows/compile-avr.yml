@@ -1,0 +1,49 @@
+name: Arduino AVR Core Compile
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  compile-avr-core:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - arduino:avr:uno
+          - arduino:avr:nano
+        example:
+          - BasicAdaptiveSensor
+          - UltraLowPowerAVRNode
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: arduino/setup-arduino-cli@v2
+
+      - name: Install AVR core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Print Arduino environment
+        run: |
+          set -euo pipefail
+          echo "Arduino CLI version:"
+          arduino-cli version
+          echo "Installed cores:"
+          arduino-cli core list
+          echo "Installed libraries:"
+          arduino-cli lib list || true
+          if [ "${{ matrix.example }}" = "BasicAdaptiveSensor" ]; then
+            echo "Compile properties for BasicAdaptiveSensor on ${{ matrix.fqbn }}:"
+            arduino-cli compile --show-properties --library . --fqbn ${{ matrix.fqbn }} examples/BasicAdaptiveSensor
+          fi
+
+      - name: Compile ${{ matrix.example }} on ${{ matrix.fqbn }}
+        run: |
+          set -euo pipefail
+          arduino-cli compile --library . --fqbn ${{ matrix.fqbn }} --warnings all --verbose examples/${{ matrix.example }}

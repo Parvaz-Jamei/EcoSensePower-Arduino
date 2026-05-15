@@ -1,0 +1,4 @@
+#ifndef ECOSENSE_RADIO_RADIOENERGYADAPTER_WRAPPER_H
+#define ECOSENSE_RADIO_RADIOENERGYADAPTER_WRAPPER_H
+#include "radio/generic/RadioEnergyAdapter.h"
+#endif

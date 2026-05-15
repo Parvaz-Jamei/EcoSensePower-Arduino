@@ -1,0 +1,111 @@
+name: Arduino Compile Matrix
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: avr-uno-smoke
+            fqbn: arduino:avr:uno
+            platforms: |
+              - name: arduino:avr
+            sketch_paths: |
+              examples/BasicAdaptiveSensor
+              examples/UltraLowPowerAVRNode
+
+          - name: avr-nano-smoke
+            fqbn: arduino:avr:nano
+            platforms: |
+              - name: arduino:avr
+            sketch_paths: |
+              examples/BasicAdaptiveSensor
+              examples/UltraLowPowerAVRNode
+
+          - name: avr-mega-extended
+            fqbn: arduino:avr:mega
+            platforms: |
+              - name: arduino:avr
+            sketch_paths: |
+              examples/BasicAdaptiveSensor
+              examples/ProfileGallery
+              examples/RadioEnergyBudget
+              examples/BluetoothBeaconBudget
+              examples/BluetoothConnectionBudget
+              examples/BluetoothUARTBridgeBudget
+              examples/GPSDutyCycleBudget
+              examples/GNSSFixEnergyBudget
+              examples/GPSPowerGatingBudget
+
+          - name: samd-zero-smoke
+            fqbn: arduino:samd:arduino_zero_edbg
+            platforms: |
+              - name: arduino:samd
+            sketch_paths: |
+              examples/BasicAdaptiveSensor
+              examples/BatteryBudgetReport
+              examples/PowerDoctorDiagnostics
+              examples/ProfileConfidenceReport
+              examples/ProfileGallery
+              examples/EnergyLedgerExample
+              examples/PeripheralGuardDemo
+              examples/MultiSensorLowPower
+              examples/SolarPoweredWeatherStation
+              examples/RadioEnergyBudget
+              examples/GPSPowerGatingBudget
+              examples/GNSSFixEnergyBudget
+              examples/GPSDutyCycleBudget
+              examples/BluetoothUARTBridgeBudget
+              examples/BluetoothConnectionBudget
+              examples/BluetoothBeaconBudget
+
+          - name: esp32-classic-smoke
+            fqbn: esp32:esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+            sketch_paths: |
+              examples/BasicAdaptiveSensor
+              examples/BatteryBudgetReport
+              examples/PowerDoctorDiagnostics
+              examples/ProfileConfidenceReport
+              examples/ProfileGallery
+              examples/ESP32DeepSleepSensorNode
+              examples/EnergyLedgerExample
+              examples/PeripheralGuardDemo
+              examples/MultiSensorLowPower
+              examples/SolarPoweredWeatherStation
+              examples/RadioEnergyBudget
+              examples/GPSPowerGatingBudget
+              examples/GNSSFixEnergyBudget
+              examples/GPSDutyCycleBudget
+              examples/BluetoothUARTBridgeBudget
+              examples/BluetoothConnectionBudget
+              examples/BluetoothBeaconBudget
+              examples/LoRaAdaptiveReporter
+              examples/GSMIndustrialAlert
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          libraries: |
+            - source-path: ./
+          sketch-paths: ${{ matrix.sketch_paths }}
+          verbose: true
+          cli-compile-flags: |
+            - --warnings
+            - all
+          enable-deltas-report: false
+          enable-warnings-report: true

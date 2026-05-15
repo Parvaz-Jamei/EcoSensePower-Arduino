@@ -1,0 +1,21 @@
+# Host-test build artifacts
+extras/tests/bin/
+extras/tests/obj/
+
+# Compiled objects and binaries
+*.o
+*.out
+*.elf
+*.bin
+*.hex
+*.map
+
+# Arduino / PlatformIO / generated build output
+build/
+.pio/
+
+# OS/archive noise
+.DS_Store
+__MACOSX/
+extras/tests/example_build/
+extras/tests/header_build/

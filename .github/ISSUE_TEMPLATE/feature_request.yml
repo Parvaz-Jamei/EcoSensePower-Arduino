@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest an additive EcoSensePower feature.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Describe the energy/runtime problem this solves.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and dependencies
+      description: List any proposed dependencies and explain how the core remains lightweight.

@@ -1,0 +1,22 @@
+name: Board profile request
+description: Request or contribute a BoardProfile.
+title: "[BoardProfile]: "
+labels: [board-profile]
+body:
+  - type: input
+    id: board
+    attributes:
+      label: Board name and MCU
+    validations:
+      required: true
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Current measurement evidence
+      description: Include setup, power path, instrument, active/sleep current, sketch, and date. Mark placeholder if not measured.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Limitations and notes

@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a compile, runtime, or documentation problem in EcoSensePower.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: EcoSensePower version
+      placeholder: "0.9.6 / pre-v1.0.0-rc1 candidate"
+    validations:
+      required: true
+  - type: input
+    id: board
+    attributes:
+      label: Board / FQBN
+      placeholder: "arduino:avr:uno"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Compile/runtime evidence
+      description: Paste Arduino CLI, Arduino IDE, or CI output.

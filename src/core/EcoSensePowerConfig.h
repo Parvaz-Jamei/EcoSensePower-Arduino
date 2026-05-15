@@ -1,0 +1,134 @@
+#ifndef ECOSENSE_CORE_ECOSENSEPOWERCONFIG_H
+#define ECOSENSE_CORE_ECOSENSEPOWERCONFIG_H
+
+// Central compile-time configuration for EcoSensePower.
+// AVR UNO/Nano-class boards have 2 KB SRAM. Their default is a tiny core
+// runtime that preserves the beginner API without forcing the full diagnostics,
+// ledger record store, SoC tracker storage, profile catalog, or guard arrays into
+// the smallest AVR sketches. Larger boards keep the feature-rich defaults.
+
+#if defined(ARDUINO_ARCH_AVR) && !defined(ECOSENSE_HOST_TEST)
+  #ifndef ECOSENSE_PRESET_AVR_TINY
+    #if defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__)
+      #define ECOSENSE_PRESET_AVR_TINY 0
+    #else
+      #define ECOSENSE_PRESET_AVR_TINY 1
+    #endif
+  #endif
+#endif
+
+#ifndef ECOSENSE_PRESET_AVR_TINY
+  #define ECOSENSE_PRESET_AVR_TINY 0
+#endif
+
+#if ECOSENSE_PRESET_AVR_TINY
+
+  #ifndef ECOSENSE_MAX_SENSORS
+    #define ECOSENSE_MAX_SENSORS 1
+  #endif
+
+  #ifndef ECOSENSE_MAX_GUARDS
+    #define ECOSENSE_MAX_GUARDS 0
+  #endif
+
+  #ifndef ECOSENSE_MAX_DIAGNOSTICS
+    #define ECOSENSE_MAX_DIAGNOSTICS 0
+  #endif
+
+  #ifndef ECOSENSE_LEDGER_MAX_RECORDS
+    #define ECOSENSE_LEDGER_MAX_RECORDS 0
+  #endif
+
+  #ifndef ECOSENSE_REPORT_TEXT_SIZE
+    #define ECOSENSE_REPORT_TEXT_SIZE 64
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_FULL_LEDGER
+    #define ECOSENSE_ENABLE_FULL_LEDGER 0
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_POWER_DOCTOR_STORAGE
+    #define ECOSENSE_ENABLE_POWER_DOCTOR_STORAGE 0
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_SOC_TRACKER
+    #define ECOSENSE_ENABLE_SOC_TRACKER 0
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_PROFILE_CATALOG
+    #define ECOSENSE_ENABLE_PROFILE_CATALOG 0
+  #endif
+
+#else
+
+  #ifndef ECOSENSE_MAX_SENSORS
+    #define ECOSENSE_MAX_SENSORS 4
+  #endif
+
+  #ifndef ECOSENSE_MAX_GUARDS
+    #define ECOSENSE_MAX_GUARDS 4
+  #endif
+
+  #ifndef ECOSENSE_MAX_DIAGNOSTICS
+    #define ECOSENSE_MAX_DIAGNOSTICS 32
+  #endif
+
+  #ifndef ECOSENSE_LEDGER_MAX_RECORDS
+    #define ECOSENSE_LEDGER_MAX_RECORDS 16
+  #endif
+
+  #ifndef ECOSENSE_REPORT_TEXT_SIZE
+    #define ECOSENSE_REPORT_TEXT_SIZE 256
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_FULL_LEDGER
+    #define ECOSENSE_ENABLE_FULL_LEDGER 1
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_POWER_DOCTOR_STORAGE
+    #define ECOSENSE_ENABLE_POWER_DOCTOR_STORAGE 1
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_SOC_TRACKER
+    #define ECOSENSE_ENABLE_SOC_TRACKER 1
+  #endif
+
+  #ifndef ECOSENSE_ENABLE_PROFILE_CATALOG
+    #define ECOSENSE_ENABLE_PROFILE_CATALOG 1
+  #endif
+
+#endif
+
+#ifndef ECOSENSE_ENABLE_BLUETOOTH_PROFILE_CATALOG
+#define ECOSENSE_ENABLE_BLUETOOTH_PROFILE_CATALOG ECOSENSE_ENABLE_PROFILE_CATALOG
+#endif
+
+#ifndef ECOSENSE_ENABLE_GPS_PROFILE_CATALOG
+#define ECOSENSE_ENABLE_GPS_PROFILE_CATALOG ECOSENSE_ENABLE_PROFILE_CATALOG
+#endif
+
+#ifndef ECOSENSE_ENABLE_ARDUINO_BLE_ADAPTER
+#define ECOSENSE_ENABLE_ARDUINO_BLE_ADAPTER 0
+#endif
+
+#ifndef ECOSENSE_ENABLE_TINYGPSPLUS_ADAPTER
+#define ECOSENSE_ENABLE_TINYGPSPLUS_ADAPTER 0
+#endif
+
+#ifndef ECOSENSE_ENABLE_ADAFRUIT_GPS_ADAPTER
+#define ECOSENSE_ENABLE_ADAFRUIT_GPS_ADAPTER 0
+#endif
+
+#ifndef ECOSENSE_DEFAULT_MIN_INTERVAL_MS
+#define ECOSENSE_DEFAULT_MIN_INTERVAL_MS 1000UL
+#endif
+
+#ifndef ECOSENSE_DEFAULT_MAX_INTERVAL_MS
+#define ECOSENSE_DEFAULT_MAX_INTERVAL_MS 60000UL
+#endif
+
+#ifndef ECOSENSE_DEFAULT_CHANGE_THRESHOLD
+#define ECOSENSE_DEFAULT_CHANGE_THRESHOLD 1.0f
+#endif
+
+#endif

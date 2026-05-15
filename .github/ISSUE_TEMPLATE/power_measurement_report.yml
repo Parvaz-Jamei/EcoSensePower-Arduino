@@ -1,0 +1,41 @@
+name: Power measurement report
+description: Submit measured current evidence for a board, battery, sensor, or guard profile.
+title: "Power measurement: <board/profile>"
+labels: ["measurement", "profile"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: EcoSensePower version
+      placeholder: "0.9.6 / pre-v1.0.0-rc1 candidate"
+    validations:
+      required: true
+  - type: input
+    id: board
+    attributes:
+      label: Board / MCU / core version
+      placeholder: "Arduino Uno R3 / ATmega328P / Arduino AVR core x.y.z"
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Measurement setup
+      description: Include meter/instrument model, wiring, regulator, sensor/radio state, temperature if known, and duty cycle.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Measured current values
+      description: Include active, sleep, sensor warmup/read, report/radio states as applicable.
+      placeholder: "SLEEP: ... uA; SENSOR_READ: ... uA; REPORT: ... uA"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Paste logs, method, assumptions, and links/screenshots if available.
+    validations:
+      required: true
